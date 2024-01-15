@@ -49,4 +49,20 @@ describe('Car class', () => {
     test('new cars start with the odometer at zero', () => {
         expect(prius).toHaveProperty('odometer', 0)
     })
+    test('cars have a drive method', () => {
+        expect(prius.drive).toBeDefined()
+        expect(prius.drive).toBe(Car.prototype.drive)
+    })
+    test('drive method takes distance and increases odometer by that distance', () => {
+        prius.drive(10)
+        expect(prius.odometer).toBe(10)
+        prius.drive(5)
+        expect(prius.odometer).toBe(15)
+    })
+    test('driveAsync method resolves the updated odometer', async () => {
+        let updatedOdometer = await prius.driveAsync(7)
+        expect(updatedOdometer).toBe(7)
+        updatedOdometer = await prius.driveAsync(5)
+        expect(updatedOdometer).toBe(12)
+    })
 })
